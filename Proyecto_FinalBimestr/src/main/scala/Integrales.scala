@@ -1,6 +1,6 @@
 
 import scala.io.StdIn.*
-
+//------------------- Simpson 1/3 --------------------
 val i = (valA: Double, valB: Double, f_x: Double => Double) => ((valB - valA) * (f_x(valA) + 4 * (f_x((valA + valB) / 2)) +
   f_x(valB))) / 6
 
@@ -37,18 +37,15 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       val valInf = readInt()
       println("Ingrese el valor Superior")
       val valSup = readInt()
-      val respuesta = i(valInf, valSup, z => -(math.pow(z,2))+ (8*z)-12)
 
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
       // ---------------------Prints-------------------
-      println("Método de Simpson 1/3: " + respuesta)
-      println("Su resultado compuesto2 es: "+composedIntegration(valInf,anonimoH(valInf,valSup,n),n,x1 => -math.pow(x1,2)+8*x1-12))
-      println("Su resultado extendidoNuevo es: " + extendIntegration(valInf,valSup,anonimoN(valInf,valSup),
-        variantAnonimoH(valInf,valSup,anonimoN(valInf,valSup)),x1 => -math.pow(x1,2)+8*x1-12))
+      println("ʃ(-(x^2) + 8x - 12)dx\n"+
+          s"Método de Simpson 1/3            : ${i(valInf, valSup, z => -(math.pow(z,2))+ (8*z)-12)}\n"+
+          s"Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(valInf, anonimoH(valInf, valSup, 8),
+                                                  8, x1 => -math.pow(x1, 2) + 8 * x1 - 12)}\n"+
+          s"Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
+                                                  variantAnonimoH(valInf, valSup, anonimoN(valInf, valSup)),
+                                                  x1 => -math.pow(x1, 2) + 8 * x1 - 12)}\n")
 
 
     case "2" =>
@@ -57,17 +54,11 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       val valInf = readInt()
       println("Ingrese el límite Superior")
       val valSup = readInt()
-      val respuesta = i(valInf, valSup, d => 3*math.pow(d, 2))
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
-
-      println("Método de Simpson 1/3\n\t" + respuesta)
-      println("Su resultado es: " + composedIntegration(valInf, anonimoH(valInf, valSup, n), n,
+      println("ʃ(3(x^2))dx")
+      println("Método de Simpson 1/3            : " + i(valInf, valSup, d => 3 * math.pow(d, 2)))
+      println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valInf, anonimoH(valInf, valSup, 8), 8,
         x1 => (3 * math.pow(x1, 2))))
-      println("Su resultado extendido es: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
+      println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
         variantAnonimoH(valInf, valSup, anonimoN(valInf, valSup)), x1 => (3 * math.pow(x1, 2))))
 
 
@@ -77,17 +68,13 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       val valA = readInt()
       println("Ingrese el valor Superior")
       val valB = readInt()
-      val respuesta = i(valA, valB, x1 => (x1 + 2 * math.pow(x1, 2) - math.pow(x1, 3) + 5 * math.pow(x1, 4)))
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
-
-      println("Método de Simpson 1/3\n\t" + respuesta)
-      println("Su resultado  es: " + composedIntegration(valA, anonimoH(valA, valB, n), n,
+      val respuesta =
+      println("ʃ((x + 2x^2 - x^3 + 5x^4))dx")
+      println("Método de Simpson 1/3            : " + i(valA, valB, x1 => (x1 + 2 * math.pow(x1, 2) -
+        math.pow(x1, 3) + 5 * math.pow(x1, 4))))
+      println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valA, anonimoH(valA, valB, 8), 8,
         x1 => (x1 + 2 * math.pow(x1, 2) - math.pow(x1, 3) + 5 * math.pow(x1, 4))))
-      println("Su resultado extendido es: " + extendIntegration(valA, valB, anonimoN(valA, valB),
+      println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration(valA, valB, anonimoN(valA, valB),
         variantAnonimoH(valA, valB, anonimoN(valA, valB)), x1 => (x1 + 2 * math.pow(x1, 2) - math.pow(x1, 3) + 5 * math.pow(x1, 4))))
 
 
@@ -98,17 +85,12 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       val valInf = readInt()
       println("Ingrese el valor Superior")
       val valSup = readInt()
-      val respuesta = i(valInf, valSup, x => ((2*x)+1)/(math.pow(x,2)+x))
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
 
-      println("Método de Simpson 1/3\n\t" + respuesta)
-      println("Su resultado es: " + composedIntegration(valInf, anonimoH(valInf, valSup, n), n,
+      println("ʃ(2x+1)/(x^2 +1)dx")
+      println("Método de Simpson 1/3            : " + i(valInf, valSup, x => ((2*x)+1)/(math.pow(x,2)+x)))
+      println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valInf, anonimoH(valInf, valSup, 8), 8,
         x1 => ((2 * x1 + 1) / (math.pow(x1, 2) + x1))))
-      println("Su resultado extendido es: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
+      println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
         variantAnonimoH(valInf, valSup, anonimoN(valInf, valSup)), x1 => ((2 * x1 + 1) / (math.pow(x1, 2) + x1))))
 
 
@@ -119,36 +101,28 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       val valInf = readInt()
       println("Ingrese el valor Superior")
       val valSup = readInt()
-      val respuesta = i(valInf, valSup, x => math.pow(math.E, x))
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
-      println("Método de Simpson 1/3\n\t" + respuesta)
-      println("Su resultado es: " + composedIntegration(valInf, anonimoH(valInf, valSup, n), n, x1 => (math.pow(math.E, x1))))
 
-      println("Su resultado extendido es: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
+      println("ʃ(e^x)dx")
+      println("Método de Simpson 1/3            : " + i(valInf, valSup, x => math.pow(math.E, x)))
+      println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valInf, anonimoH(valInf, valSup, 8), 8,
+                                                      x1 => (math.pow(math.E, x1))))
+
+      println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
         variantAnonimoH(valInf, valSup, anonimoN(valInf, valSup)), x1 => (math.pow(math.E, x1))))
 
 
     case "6" =>
-
-      println("Ingrese el valor inferior")
-      val valInf = readInt()
-      println("Ingrese el valor Superior")
-      val valSup = readInt()
-      val respuesta = i(valInf, valSup, x=>1/ (math.sqrt(x-1)))
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
-      println("Método de Simpson 1/3\n\t" + respuesta)
-      println("Su resultado es: " + composedIntegration(valInf, anonimoH(valInf, valSup, n), n, x1 => (1 / math.sqrt(x1 - 1))))
-      println("Su resultado extendido es: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
-        variantAnonimoH(valInf, valSup, anonimoN(valInf, valSup)), x1 => (1 / math.sqrt(x1 - 1))))
-
+        println("Ingrese el valor inferior")
+        val valInf = readInt()
+        println("Ingrese el valor Superior")
+        val valSup = readInt()
+          println("ʃ(1/√(x-1))dx")
+          println("Método de Simpson 1/3            : " + i(valInf, valSup, x => 1 / (math.sqrt(x - 1))))
+          println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valInf, anonimoH(valInf, valSup, 8), 8,
+                                                        x1 => (1 / math.sqrt(x1 - 1))))
+          println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration(valInf, valSup, anonimoN(valInf, valSup),
+                                                          variantAnonimoH(valInf, valSup,
+                                                          anonimoN(valInf, valSup)), x1 => (1 / math.sqrt(x1 - 1))))
 
     case "7" =>
 
@@ -157,16 +131,65 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       println("Ingrese el valor Superior")
       val valSup = readInt()
       val respuesta = i(valInf, valSup, x => 1/ (1+math.pow(x, 2)))
-      println("Ingresa la longitud del intervalo")
-      val n = scala.io.StdIn.readInt()
-      if (n % 2 != 0) {
-        System.exit(0)
-      }
-      println("Método de Simpson 1/3\n\t" + respuesta)
-      println("Su resultado es: " + composedIntegration(valInf, anonimoH(valInf, valSup, n), n, x1 => (1 / (1 + math.pow(x1, 2)))))
-      println ("Su resultado extendidoNuevo1 es: " + extendIntegration (valInf, valSup, anonimoN (valInf, valSup), variantAnonimoH
+      println("ʃ((1/(1+x^2))dx")
+      println("Método de Simpson 1/3: " + respuesta)
+      println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valInf, anonimoH(valInf, valSup, 8), 8,
+                                                      x1 => (1 / (1 + math.pow(x1, 2)))))
+      println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration (valInf, valSup, anonimoN (valInf, valSup), variantAnonimoH
       (valInf, valSup, anonimoN (valInf, valSup) ), x1 => (1 / (1 + math.pow (x1, 2) ) ) ) )
-    case _ => println("Ingrese un valor incorrecto")
+    case "8" =>
+      println("+-------------------------------------------------------+\n" +
+              "|  =>ʃ(-(x^2)+8x-12)dx                                  |\n" +
+             s"|  Método de Simpson 1/3:           : ${i(3, 5, z => -(math.pow(z, 2)) + (8 * z) - 12)} ${} |\n"+
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(3, anonimoH(3, 5, 8),
+                                                       8, x1 => -math.pow(x1, 2) + 8 * x1 - 12)} |\n" +
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(3, 5, anonimoN(3, 5),
+                                                       variantAnonimoH(3, 5, anonimoN(3, 5)),
+                                                       x1 => -math.pow(x1, 2) + 8 * x1 - 12)} |\n"+
+              "|  =>ʃ(3(x ^ 2))dx                                      |\n"+
+             s"|  Método de Simpson 1/3            : ${i(0, 2, d => 3 * math.pow(d, 2))}\t\t\t    |\n"+
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(0, anonimoH(0, 2, 8), 8,
+                                                       x1 => (3 * math.pow(x1, 2)))}\t\t\t    |\n" +
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(0, 2, anonimoN(0, 2),
+                                                       variantAnonimoH(0, 2, anonimoN(0, 2)),
+                                                       x1 => (3 * math.pow(x1, 2)))}\t\t\t    |\n" +
+             s"|  => ʃ((x + 2x^2 - x^3 + 5x^4))dx                      |\n" +
+             s"|  Método de Simpson 1/3            : ${i(-1, 1, x1 => (x1 + 2 * math.pow(x1, 2) -
+                                                       math.pow(x1, 3) + 5 * math.pow(x1, 4)))} |\n" +
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(-1, anonimoH(-1, 1, 8), 8,
+                                                       x1 => (x1 + 2 * math.pow(x1, 2) - math.pow(x1, 3) + 5 * math.pow(x1, 4)))}|\n" +
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(-1, 1, anonimoN(-1, 1),variantAnonimoH
+                                                       (-1, 1, anonimoN(-1, 1)), x1 => (x1 + 2 * math.pow(x1, 2) -
+                                                       math.pow(x1, 3) + 5 * math.pow(x1, 4)))}|\n"+
+             s"|  => ʃ(2x+1)/(x^2 +1)dx                                |\n" +
+             s"|  Método de Simpson 1/3            : ${i(1, 2, x => ((2*x)+1)/(math.pow(x,2)+x))}|\n" +
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(1, anonimoH(1, 2, 8), 8,
+                                                       x1 => ((2 * x1 + 1) / (math.pow(x1, 2) + x1)))}|\n" +
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(1, 2, anonimoN(1, 2),
+                                                       variantAnonimoH(1, 2, anonimoN(1, 2)),
+                                                       x1 => ((2 * x1 + 1) / (math.pow(x1, 2) + x1)))}|\n"+
+              "|  => ʃ(e^x)dx                                          |\n" +
+             s"|  Método de Simpson 1/3            : ${i(0, 1, x => math.pow(math.E, x))}|\n" +
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(0, anonimoH(0, 1, 8), 8,
+                                                       x1 => (math.pow(math.E, x1)))} |\n" +
+
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(0, 1, anonimoN(0, 1),
+                                                       variantAnonimoH(0, 1, anonimoN(0, 1)),
+                                                       x1 => (math.pow(math.E, x1)))}|\n" +
+             s"|  => ʃ(1/√(x-1))dx                                     |\n"+
+             s"|  Método de Simpson 1/3            : ${i(2, 3, x => 1 / (math.sqrt(x - 1)))}|\n" +
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(2, anonimoH(2, 3, 8), 8,
+                                                       x1 => (1 / math.sqrt(x1 - 1)))}|\n" +
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(2, 3, anonimoN(2, 3),
+                                                    variantAnonimoH(2, 3, anonimoN(2, 3)), x1=>(1/math.sqrt(x1-1)))}|\n"+
+             s"|  => ʃ((1/(1+x^2))dx                                   |\n"+
+             s"|  Método de Simpson 1/3            : ${i(0, 1, x => 1/ (1+math.pow(x, 2)))}|\n"+
+             s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(0, anonimoH(0, 1, 8), 8,
+                                                       x1 => (1 / (1 + math.pow(x1, 2))))}|\n" +
+             s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(0, 1, anonimoN(0, 1), variantAnonimoH
+                                                       (0, 1, anonimoN(0, 1)), x1 => (1 / (1 + math.pow(x1, 2)))) }|\n"+
+              "+-------------------------------------------------------+")
+    case _ => println("Ingrese un valor Correcto")
   }
 
 
