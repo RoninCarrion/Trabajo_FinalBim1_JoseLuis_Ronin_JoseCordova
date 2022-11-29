@@ -14,7 +14,7 @@ val composedIntegration = (a: Double, h: Double, n: Int, fc: Double => Double) =
 val anonimoN = (x: Int, y: Int) => 2 * (y - x)
 val variantAnonimoH = (x: Double, y: Double, n: Double) => (y - x) / n
 val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double => Double) => {
-  (h2 / 3) * (fc(a) + (4*(1 to n2 - 1 by 2).map(i => fc(a + i * h2)).sum) + (2 * (2 to n2 - 2 by 2).map(j => fc(a + j * h2)).sum) + fc(b))
+  (h2 / 3) * (fc(a) + (4*(1 to n2 - 1 by 2).map(i => fc(a + i * h2)).sum) + (2*(2 to n2 - 2 by 2).map(j => fc(a+j*h2)).sum)+fc(b))
 }
 
 
@@ -136,11 +136,11 @@ val extendIntegration = (a: Double, b: Double, n2: Int, h2: Double, fc: Double =
       println("Método de Simpson 1/3 [COMPUESTO]: " + composedIntegration(valInf, anonimoH(valInf, valSup, 8), 8,
                                                       x1 => (1 / (1 + math.pow(x1, 2)))))
       println("Método de Simpson 1/3 [EXTENDIDO]: " + extendIntegration (valInf, valSup, anonimoN (valInf, valSup), variantAnonimoH
-      (valInf, valSup, anonimoN (valInf, valSup) ), x1 => (1 / (1 + math.pow (x1, 2) ) ) ) )
+      (valInf, valSup, anonimoN (valInf, valSup) ), x1 => (1 / (1 + math.pow (x1, 2)))))
     case "8" =>
       println("+-------------------------------------------------------+\n" +
               "|  =>ʃ(-(x^2)+8x-12)dx                                  |\n" +
-             s"|  Método de Simpson 1/3:           : ${i(3, 5, z => -(math.pow(z, 2)) + (8 * z) - 12)} ${} |\n"+
+             s"|  Método de Simpson 1/3:           : ${i(3, 5, z => -(math.pow(z, 2)) + (8 * z) - 12)} |\n"+
              s"|  Método de Simpson 1/3 [COMPUESTO]: ${composedIntegration(3, anonimoH(3, 5, 8),
                                                        8, x1 => -math.pow(x1, 2) + 8 * x1 - 12)} |\n" +
              s"|  Método de Simpson 1/3 [EXTENDIDO]: ${extendIntegration(3, 5, anonimoN(3, 5),
